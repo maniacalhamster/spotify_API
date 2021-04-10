@@ -3,7 +3,10 @@ if (!(Test-Path refresh_token_data.json)){
 }
 
 $player_base = "https://api.spotify.com/v1/me/player";
-$header = @{'Authorization' = 'Bearer'};
+
+if(!($header)){
+    $header = @{'Authorization' = 'Bearer'};
+}
 
 function Token-Refresh() {
     $base = 'https://accounts.spotify.com';
@@ -64,6 +67,11 @@ function Spotify-Pause(){
 
 function Spotify-Devices(){
     Get-Request "$player_base/devices";
+}
+
+function Spotify-SetVolume($volume){
+    $url = "$player_base\volume`?volume_percent=$volume";
+    Put-Request $url;
 }
 
 function ConvertTo-SpotifyUri($inp){

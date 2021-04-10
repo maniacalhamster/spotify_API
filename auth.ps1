@@ -1,4 +1,6 @@
+$dashboard_url = "https://developer.spotify.com/dashboard/applications";
 if (!($client_id)) {
+    Write-Host "Link: $dashboard_url";
     $client_id = Read-Host "Client ID" -AsSecureString | ConvertFrom-SecureString -AsPlainText;
 }
 if (!($client_secret)) {
@@ -13,7 +15,7 @@ if (!($encoded_redirect_uri)) {
 }
 
 $response_type = "code";
-$scope = "streaming";
+$scope = "user-read-recently-played user-top-read user-read-playback-state user-modify-playback-state user-read-currently-playing";
 $base_url = "https://accounts.spotify.com";
 
 $auth_url = "$base_url/authorize?client_id=$client_id&response_type=$response_type&redirect_uri=$encoded_redirect_uri&scope=$scope";

@@ -15,11 +15,13 @@ if (!($encoded_redirect_uri)) {
 }
 
 $response_type = "code";
-$scope = "user-read-recently-played user-top-read user-read-playback-state user-modify-playback-state user-read-currently-playing";
+$scope = "user-read-recently-played user-top-read user-modify-playback-state user-read-currently-playing";
 $base_url = "https://accounts.spotify.com";
 
+$scope = [System.Web.HttpUtility]::UrlEncode($scope);
 $auth_url = "$base_url/authorize?client_id=$client_id&response_type=$response_type&redirect_uri=$encoded_redirect_uri&scope=$scope";
 
+Write-Host "Link: $auth_url";
 edge $auth_url;
 
 $code = ($(Read-Host "Redirect URL received") -replace ".*code=");
